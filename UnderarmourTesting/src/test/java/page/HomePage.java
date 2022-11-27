@@ -29,6 +29,7 @@ public class HomePage extends AbstractPage {
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(FIND_INPUT_MAIN_PAGE_BOX_XPATH)));
         return this;
+
     }
 
     public HomePage clickInputBoxMainPage() {
@@ -36,8 +37,8 @@ public class HomePage extends AbstractPage {
         return this;
     }
 
-    public HomePage writeSomeWordsIntoInputBoxMainPage(String term) {
-        inputBoxMainPage.sendKeys(term);
+    public HomePage writeSomeWordsIntoInputBoxMainPage() {
+        inputBoxMainPage.sendKeys("---");
         return this;
     }
 
@@ -46,8 +47,8 @@ public class HomePage extends AbstractPage {
         return this;
     }
 
-    public HomePage inputInEmailField(String term) {
-        inputEmailBox.sendKeys(term);
+    public HomePage writeSomeWordsIntoInputEmailBox() {
+        inputEmailBox.sendKeys("no");
         return this;
     }
 

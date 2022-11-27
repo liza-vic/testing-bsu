@@ -11,7 +11,8 @@ import page.HomePage;
     public class HomePageTest {
         private WebDriver driver;
 
-
+        public HomePageTest() {
+        }
 
     @BeforeMethod(
             alwaysRun = true
@@ -21,13 +22,13 @@ import page.HomePage;
     }
 
     @Test
-    public void checkValidDataInTextArea() {
-        String expectedMessage = "Sorry, no results for “---”";
+    public void checkValidDataInTextArea() throws InterruptedException {
+        String expectedMessage1 = "Sorry, no results for “---”";
         HomePage homePage = (new HomePage(this.driver)).openPage().clickInputBoxMainPage()
-                .writeSomeWordsIntoInputBoxMainPage("---")
-                .pressEnter().inputInEmailField("no").closeWindow();
+                .writeSomeWordsIntoInputBoxMainPage()
+                .pressEnter().writeSomeWordsIntoInputEmailBox().closeWindow();
         String actualMessage = homePage.isContainsErrorElement();
-        Assert.assertEquals(expectedMessage, actualMessage);
+        Assert.assertEquals(expectedMessage1, actualMessage);
     }
 
     @AfterMethod(
