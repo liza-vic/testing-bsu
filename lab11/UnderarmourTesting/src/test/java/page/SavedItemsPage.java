@@ -16,7 +16,7 @@ public class SavedItemsPage extends AbstractPage {
     private static final String FIND_FIRST_ITEM_PAGE = "https://www.asos.com/bershka/bershka-maxi-belted-coat-in-black/prd/203831276";
     private static final String FIND_SECOND_ITEM_PAGE = "https://www.asos.com/asos-design/asos-design-longline-trench-coat-in-stone/prd/201104221";
     private static final String FIND_THIRD_ITEM_PAGE = "https://www.asos.com/asos-design/asos-design-velour-look-belted-padded-coat-in-mink/prd/202185043";
-    private static final String FIND_THIRD_ITEM = "//*[@id=\"saved-lists-app\"]/main/div/div/section/ol/li[3]/div/div/div/div[1]/a/div[2]/div/div";
+    private static final String FIND_THIRD_ITEM = "//*[@id=\"saved-lists-app\"]/main/div/div[1]/section/ol/li[3]/div/div/div/div[1]/a/div[2]/div/div";
     private static final String FIND_SECOND_ITEM = "//*[@id=\"saved-lists-app\"]/main/div/div[1]/section/ol/li[2]/div/div/div/div[1]/a/div[2]/div/div";
     private static final String FIND_FIRST_ITEM = "//*[@id=\"saved-lists-app\"]/main/div/div[1]/section/ol/li[1]/div/div/div/div[1]/a/div[2]/div/div";
     private static final String FIND_FIRST_ITEM_DELETE_BUTTON = "//*[@id=\"saved-lists-app\"]/main/div/div[1]/section/ol/li[1]/div/div/div/button[1]";
@@ -26,6 +26,7 @@ public class SavedItemsPage extends AbstractPage {
     private static final String FIND_ADD_TO_FAVORITE_BUTTON_FIRST_ITEM = "//*[@id=\"save-for-later-portal-203831276\"]/button";
     private static final String FIND_ADD_TO_FAVORITE_BUTTON_SECOND_ITEM = "//*[@id=\"save-for-later-portal-201104221\"]/button";
     private static final String FIND_ADD_TO_FAVORITE_BUTTON_THIRD_ITEM = "//*[@id=\"save-for-later-portal-202185043\"]/button";
+    private static final String FIND_ADD_TO_CART_BUTTON = "//*[@id=\"saved-lists-app\"]/main/div/div[1]/section/ol/li[3]/div/div/div/button[2]";
     @FindBy(xpath = FIND_ADD_TO_FAVORITE_BUTTON_FIRST_ITEM)
     private WebElement firstItemFavorite;
 
@@ -55,6 +56,9 @@ public class SavedItemsPage extends AbstractPage {
     @FindBy(xpath = FIND_INFORMATION_ABOUT_NUMBER_OF_SAVED_ITEMS)
     private WebElement informationAboutNumberOfSavedItems;
 
+    @FindBy(xpath = FIND_ADD_TO_CART_BUTTON)
+    private WebElement addTocartButton;
+
 
     public SavedItemsPage(WebDriver driver) {
         super(driver);
@@ -76,9 +80,9 @@ public class SavedItemsPage extends AbstractPage {
 
     public SavedItemsPage addFirstItemToFavorite() {
         driver.get(FIND_FIRST_ITEM_PAGE);
+        WaitsUtil.waitForVisibilityOfElementLocatedByXpath(FIND_ADD_TO_FAVORITE_BUTTON_FIRST_ITEM, driver);
         scrollIntoView(firstItemFavorite);
         firstItemFavorite.click();
-        WaitsUtil.waitForVisibilityOfElementLocatedByXpath(FIND_ADD_TO_FAVORITE_BUTTON_FIRST_ITEM, driver);
         logger.info("First item added to Saved Items");
         return this;
     }
@@ -112,6 +116,7 @@ public class SavedItemsPage extends AbstractPage {
 
     public String getThirdFavoriteItem() {
         ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,1000)");
+        WaitsUtil.waitForVisibilityOfElementLocatedByXpath(FIND_THIRD_ITEM, driver);
         return thirdItem.getText();
     }
 
@@ -127,6 +132,8 @@ public class SavedItemsPage extends AbstractPage {
         logger.info("First item removed from favorites");
         return this;
     }
+
+
 
     public String getInformationAboutNumberOfSavedItems() {
         WaitsUtil.waitForVisibilityOfElementLocatedByXpath(FIND_INFORMATION_ABOUT_NUMBER_OF_SAVED_ITEMS, driver);
