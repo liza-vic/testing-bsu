@@ -10,16 +10,12 @@ import org.openqa.selenium.support.FindBy;
 
 public class HomePage extends AbstractPage {
     private final Logger logger = LogManager.getRootLogger();
-    private static final String PAGE_URL = "https://www.underarmour.com/en-us/";
-    private static final String FIND_INPUT_MAIN_PAGE_BOX_XPATH = "//*[@id='dt-standard-basic']";
-    private static final String FIND_INPUT_POPUP_EMAIL_BOX = "//*[@id='hpEmailSignUp']";
-    private static final String ERROR_XPATH = "//*[@id='maincontent']/div/div/div[1]/div[1]/div[1]/div[1]/p";
+    private static final String PAGE_URL = "https://www.asos.com/women/";
+    private static final String FIND_INPUT_MAIN_PAGE_BOX_XPATH = "//*[@id=\"chrome-search\"]";
+    private static final String ERROR_XPATH = "//*[@id=\"chrome-app-container\"]/section[1]/section/section/section/section/section/h2";
 
     @FindBy(xpath = FIND_INPUT_MAIN_PAGE_BOX_XPATH)
     private WebElement inputBoxMainPage;
-
-    @FindBy(xpath = FIND_INPUT_POPUP_EMAIL_BOX)
-    private WebElement inputPopupEmailBox;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -48,18 +44,6 @@ public class HomePage extends AbstractPage {
         return this;
     }
 
-    @Override
-    public HomePage inputInPopupEmailField(String term) {
-        inputPopupEmailBox.sendKeys(term);
-        logger.info("Email form found");
-        return this;
-    }
-
-    @Override
-    public HomePage closeWindow() {
-        inputPopupEmailBox.sendKeys(Keys.ESCAPE);
-        return this;
-    }
 
     public String getErrorMessage() {
         return driver.findElement(By.xpath(ERROR_XPATH)).getText();

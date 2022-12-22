@@ -13,7 +13,6 @@ import static org.hamcrest.Matchers.is;
 @Listeners({TestListener.class})
 public class HomePageTest extends CommonConditions {
     public static final String TESTDATA_SEARCH_REQUEST = TestDataReader.getTestData("testdata.search.request");
-    public static final String TESTDATA_USER_POPUP_EMAIL_FORM = TestDataReader.getTestData("testdata.user.popup.email.form");
 
     @Test
     public void checkValidDataInTextArea() {
@@ -21,10 +20,8 @@ public class HomePageTest extends CommonConditions {
                 .openPage()
                 .clickInputBoxMainPage()
                 .inputInBoxMainPage(TESTDATA_SEARCH_REQUEST)
-                .pressEnter()
-                .inputInPopupEmailField(TESTDATA_USER_POPUP_EMAIL_FORM)
-                .closeWindow();
+                .pressEnter();
 
-        assertThat(homePage.getErrorMessage(), is(equalTo("Sorry, no results for “---”")));
+        assertThat(homePage.getErrorMessage(), is(equalTo("NOTHING MATCHES YOUR SEARCH")));
     }
 }
